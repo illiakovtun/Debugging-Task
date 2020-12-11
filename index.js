@@ -38,15 +38,16 @@ function findReports() {
             return branchResult.toString() === branch._id;
         }) !== -1;
     });
-    var pos = posCollection.filter(function (pos) {
-        return results.pos.findIndex(function (posResult) {
-            return posResult.toString() === pos._id;
-        }) !== -1;
-    });
+
+    // var pos = posCollection.filter(function (pos) {
+    //     return results.pos.findIndex(function (posResult) {
+    //         return posResult.toString() === pos._id;
+    //     }) !== -1;
+    // });
 
     var instances = {
         branch: branches,
-        pos: pos,
+        pos: results.pos,
     };
 
     const mappedResults = {};
