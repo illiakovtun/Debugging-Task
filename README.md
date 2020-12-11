@@ -1,7 +1,4 @@
-Our test (run "npm test") fails. For some reason the code says "Missing pos_id".
-Your task is to find the bug that is causing the error and eliminate it.
-
-1. Please make changes only to index.js file.
-1. Please describe the issue you've found, the fix you implemented and what is the root cause.
-
-Good luck!
+1. Issue was an error, where we were missing one IDs of POS.
+2. To fix this problem I've replaced filtered array with our default results array.
+3. The root cause was: Firstly we get results by reduce method but then use filter to get rid of 
+pos_id that was previously null.
