@@ -18,7 +18,7 @@ var posCollection = [
 const mapToObjectId = array => array.map(id => ObjectID(id));
 
 const getReducer = filter => (accumulator, report) => {
-    if (accumulator.indexOf(report[filter]) === -1) {
+    if (report[filter] && accumulator.indexOf(report[filter]) === -1) {
         accumulator.push(report[filter]);
     }
     return accumulator;
@@ -49,13 +49,11 @@ function findReports() {
         pos: pos,
     };
 
-    console.log('results: ', results)
-
     const mappedResults = {};
     const unexpectedError = ['branch', 'pos'].some(prop => {
+        const resultsArrayLength = instances[prop].length;
         
-        const filterArrayLength = instances[prop].length;
-        const resultsArrayLength  = results[prop].length;
+        const filterArrayLength  = results[prop].length;
 
         if (filterArrayLength > resultsArrayLength) {
             const foundIds = [];
@@ -67,13 +65,11 @@ function findReports() {
             });
             return true;
         }
-
         mappedResults[prop] = {};
         results[prop].forEach(record => {
             mappedResults[prop][record._id] = record;
         });
     });
-
     return unexpectedError;
 }
 
