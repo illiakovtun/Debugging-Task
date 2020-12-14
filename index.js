@@ -25,7 +25,6 @@ const getReducer = filter => (accumulator, report) => {
 };
 
 function findReports() {
-
     var existingReports = reportsRepository.getReports();
 
     var results = {
@@ -39,21 +38,24 @@ function findReports() {
         }) !== -1;
     });
 
-    // var pos = posCollection.filter(function (pos) {
-    //     return results.pos.findIndex(function (posResult) {
-    //         return posResult.toString() === pos._id;
-    //     }) !== -1;
-    // });
+    var pos = posCollection.filter(function (pos) {
+        return results.pos.findIndex(function (posResult) {
+            return posResult.toString() === pos._id;
+        }) !== -1;
+    });
 
     var instances = {
         branch: branches,
-        pos: results.pos,
+        pos: pos,
     };
+
+    console.log('results: ', results)
 
     const mappedResults = {};
     const unexpectedError = ['branch', 'pos'].some(prop => {
-        const filterArrayLength = results[prop].length;
-        const resultsArrayLength = instances[prop].length;
+        
+        const filterArrayLength = instances[prop].length;
+        const resultsArrayLength  = results[prop].length;
 
         if (filterArrayLength > resultsArrayLength) {
             const foundIds = [];
